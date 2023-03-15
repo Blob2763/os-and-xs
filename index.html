@@ -1,0 +1,144 @@
+<html>
+	<head>
+		<title> goffy ahh website </title>
+		<link rel="stylesheet" href="style.css">
+		
+		<script>
+			function win(player) {
+				document.getElementById("winner").innerHTML = player;
+			}
+
+			function highlight(tile1, tile2, tile3) {
+				const winner = document.getElementById("winner").innerHTML
+
+				if (winner === "O") {
+					document.getElementById(tile1).style.color = "blue";
+					document.getElementById(tile2).style.color = "blue";
+					document.getElementById(tile3).style.color = "blue";
+				} else {
+					document.getElementById(tile1).style.color = "red";
+					document.getElementById(tile2).style.color = "red";
+					document.getElementById(tile3).style.color = "red";
+				}
+
+				document.getElementById(tile1).style.fontWeight = "bold";
+				document.getElementById(tile2).style.fontWeight = "bold";
+				document.getElementById(tile3).style.fontWeight = "bold";
+				
+			}
+
+			function checkWin() {
+				 const board = [
+				 	document.getElementById("1").innerHTML,
+					document.getElementById("2").innerHTML,
+					document.getElementById("3").innerHTML,
+					document.getElementById("4").innerHTML,
+					document.getElementById("5").innerHTML,
+					document.getElementById("6").innerHTML,
+					document.getElementById("7").innerHTML,
+					document.getElementById("8").innerHTML,
+					document.getElementById("9").innerHTML,
+				 ]
+
+				if (board[0] == board[1] && board[1] == board[2] && board[0] !== "-") {
+					win(board[0]);
+					highlight("1", "2", "3");
+				} else if (board[3] == board[4] && board[4] == board[5] && board[3] !== "-") {
+					win(board[3]);
+					highlight("4", "5", "6");
+				} else if (board[6] == board[7] && board[7] == board[8] && board[6] !== "-") {
+					win(board[6]);
+					highlight("7", "8", "9");
+				} else if (board[0] == board[4] && board[4] == board[8] && board[0] !== "-") {
+					win(board[0]);
+					highlight("1", "5", "9");
+				} else if (board[2] == board[4] && board[4] == board[6] && board[6] !== "-") {
+					win(board[2]);
+					highlight("3", "5", "7");
+				} else if (board[0] == board[3] && board[3] == board[6] && board[0] !== "-") {
+					win(board[0]);
+					highlight("1", "4", "7");
+				} else if (board[1] == board[4] && board[4] == board[7] && board[1] !== "-") {
+					win(board[1]);
+					highlight("2", "5", "8");
+				} else if (board[2] == board[5] && board[5] == board[8] && board[2] !== "-") {
+					win(board[2]);
+					highlight("3", "6", "9");
+				} else if (!(board.includes("-"))) {
+					document.getElementById("winner").innerHTML = "draw, click <a href='index.html'>here</a> to play again";
+				}
+			}
+
+			function place(square) {
+				const board = [
+				 	document.getElementById("1").innerHTML,
+					document.getElementById("2").innerHTML,
+					document.getElementById("3").innerHTML,
+					document.getElementById("4").innerHTML,
+					document.getElementById("5").innerHTML,
+					document.getElementById("6").innerHTML,
+					document.getElementById("7").innerHTML,
+					document.getElementById("8").innerHTML,
+					document.getElementById("9").innerHTML,
+				]
+				
+				if (board[square - 1] === "-" && document.getElementById("winner").innerHTML == ".") {
+					document.getElementById(square).innerHTML = document.getElementById("turn").innerHTML;
+
+					if (document.getElementById("turn").innerHTML === "O") {
+						document.getElementById("turn").innerHTML = "X";
+						document.getElementById("border").style.borderColor = "red";
+					} else {
+						document.getElementById("turn").innerHTML = "O";
+						document.getElementById("border").style.borderColor = "blue";
+					}
+
+					checkWin();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="border">
+			<h1>noughts and crosses game</h1>
+
+			<div class="card">
+				<div class="container">
+					<h3><b>WINNER:</b></h3>
+					<p id="winner">.</p>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="card">
+				<div class="container">
+					<h3><b>TURN:</b></h3>
+					<p id="turn">O</p>
+				</div>
+			</div>
+			
+			<br>
+
+			<div id="buttons">
+				<table>
+					<tr>
+						<td><button id="1" type="button" onclick="place(1);">-</button></td>
+						<td><button id="2" type="button" onclick="place(2);">-</button></td>
+						<td><button id="3" type="button" onclick="place(3);">-</button></td>
+					</tr>
+					<tr>
+						<td><button id="4" type="button" onclick="place(4);">-</button></td>
+						<td><button id="5" type="button" onclick="place(5);">-</button></td>
+						<td><button id="6" type="button" onclick="place(6);">-</button></td>
+					</tr>
+					<tr>
+						<td><button id="7" type="button" onclick="place(7);">-</button></td>
+						<td><button id="8" type="button" onclick="place(8);">-</button></td>
+						<td><button id="9" type="button" onclick="place(9);">-</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
